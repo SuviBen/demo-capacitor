@@ -1,59 +1,135 @@
-# DemoCapacitor
+# Demo Capacitor App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+A modern mobile web application built with Angular and Capacitor, demonstrating various mobile capabilities including camera access, geolocation, and offline-first functionality.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- 📸 Camera Integration
+  - Take photos using device camera
+  - Image preview and editing capabilities
+  - Proper permission handling
+
+- 📍 Geolocation
+  - Get current device location
+  - Real-time coordinates display
+
+- 🌐 Offline-First Architecture
+  - Service Worker implementation
+  - Cached API responses
+  - Automatic offline/online detection
+  - Periodic data refresh (20s intervals)
+
+- 🎯 Chuck Norris Jokes API
+  - Real-time joke fetching
+  - Offline caching
+  - Automatic refresh mechanism
+
+## Prerequisites
+
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- Angular CLI
+- Capacitor CLI
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/demo-capacitor.git
+cd demo-capacitor
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Build the application:
+```bash
+npm run build
+```
+
+4. Add platforms:
+```bash
+npx cap add android
+npx cap add ios
+```
+
+## Development
+
+To run the application in development mode:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To run on a mobile device:
 
 ```bash
-ng generate component component-name
+npx cap run android
+# or
+npx cap run ios
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Project Structure
 
-```bash
-ng generate --help
+```
+demo-capacitor/
+├── src/
+│   ├── app/
+│   │   ├── app.component.ts    # Main component with camera and location logic
+│   │   ├── app.config.ts       # Angular configuration
+│   │   └── app.routes.ts       # Application routes
+│   └── assets/                 # Static assets
+├── capacitor.config.ts         # Capacitor configuration
+└── ngsw-config.json           # Service Worker configuration
 ```
 
-## Building
+## Configuration
 
-To build the project run:
-
-```bash
-ng build
+### Camera Permissions
+Camera permissions are configured in `capacitor.config.ts`:
+```typescript
+plugins: {
+  Camera: {
+    permissions: ['camera']
+  }
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+### Service Worker
+Offline caching is configured in `ngsw-config.json`:
+```json
+{
+  "dataGroups": [
+    {
+      "name": "chuck-norris-jokes",
+      "urls": ["https://api.chucknorris.io/jokes/random"],
+      "cacheConfig": {
+        "maxAge": "20s",
+        "maxSize": 1,
+        "strategy": "performance",
+        "timeout": "1s"
+      }
+    }
+  ]
+}
 ```
 
-## Running end-to-end tests
+## Contributing
 
-For end-to-end (e2e) testing, run:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```bash
-ng e2e
-```
+## License
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Additional Resources
+## Acknowledgments
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular](https://angular.io/)
+- [Capacitor](https://capacitorjs.com/)
+- [Chuck Norris API](https://api.chucknorris.io/)
